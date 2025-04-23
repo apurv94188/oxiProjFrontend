@@ -1,0 +1,25 @@
+/* src/components/DynamicTable.css */
+#table-container {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    overflow-x: auto;
+    max-width: 100%;
+    padding: 10px;
+  }
+  
+  .table-row {
+    display: flex;
+    gap: 4px;
+  }
+  
+  .table-cell {
+    border: 1px solid #ccc;
+    padding: 8px;
+    min-width: 60px;
+    max-width: 300px;
+    word-break: break-word;
+    white-space: pre-wrap;
+    flex-grow: 1;
+  }
+  

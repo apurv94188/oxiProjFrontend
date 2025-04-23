@@ -1,0 +1,27 @@
+.grid-container {
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+  max-height: 80vh;
+  overflow: auto;
+  border: 1px solid #ccc;
+}
+
+.grid-row {
+  display: flex;
+}
+
+.grid-cell {
+  width: 100px;
+  height: 30px;
+  border: 1px solid #ccc;
+  padding: 5px;
+  box-sizing: border-box;
+  font-family: monospace;
+  background-color: #fff;
+  outline: none;
+  user-select: text;
+}
+.grid-cell:focus {
+  background-color: #e0f7fa;
+}

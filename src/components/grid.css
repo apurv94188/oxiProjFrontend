@@ -1,0 +1,21 @@
+.grid-container {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  
+  .grid-row {
+    display: flex;
+    gap: 2px;
+  }
+  
+  .grid-cell {
+    border: 1px solid #ccc;
+    min-width: 40px;
+    min-height: 30px;
+    padding: 4px;
+    text-align: center;
+    flex-shrink: 0;
+    flex-grow: 0;
+  }
+  
