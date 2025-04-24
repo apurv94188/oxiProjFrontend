@@ -1,31 +1,26 @@
 import React, { useEffect, useState } from 'react';
 import './grid.css';
 
-const Grid = () => {
+const SheetGrid = ({ user = 'nautanki', sheetID = 'sheet2' }) => {
   const [cellMap, setCellMap] = useState({});
 
   useEffect(() => {
-    fetch('http://localhost:3000/gettable')
+    fetch(`http://localhost:3000/getSheet?user=${user}&sheetID=${sheetID}`)
       .then(res => res.json())
       .then(data => {
         const map = {};
-        data.forEach(({ row, col, value, style }) => {
-          map[`${row}-${col}`] = { value, style };
+        data.data.forEach(rowObj => {
+          rowObj.col.forEach(cell => {
+            map[`${rowObj.row}-${cell.cell}`] = {
+              value: cell.value,
+              style: cell.style || {}
+            };
+          });
         });
         setCellMap(map);
-      });
-  }, []);
-
-
-  const handleBlur = async (e, row, col) => {
-    const newValue = e.target.innerText;
-    
-    await fetch('http://localhost:3000/updatedSheet', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ _id: docId, row, col, newValue })
-    });
-  };
+      })
+      .catch(err => console.error('Failed to fetch sheet data:', err));
+  }, [user, sheetID]);
 
   const renderCell = (row, col) => {
     const key = `${row}-${col}`;
@@ -34,15 +29,17 @@ const Grid = () => {
 
     return (
       <div
-        key={col}
+        key={key}
         className="grid-cell"
         contentEditable
         suppressContentEditableWarning
-        onBlur={(e) => handleBlur(e, rowObj.row, cell.col)}
         style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(50, 100px)',
+          minWidth: '50px',
           color: style.color || 'black',
           backgroundColor: style.bg || 'white',
-          fontWeight: style.bold === 'true' ? 'bold' : 'normal',
+          fontWeight: style.bold === 'true' ? 'bold' : 'normal'
         }}
       >
         {cell.value || ''}
@@ -51,14 +48,21 @@ const Grid = () => {
   };
 
   return (
-    <div className="grid-container">
-      {[...Array(20)].map((_, row) => (
-        <div className="grid-row" key={row}>
-          {[...Array(20)].map((_, col) => renderCell(row, col))}
+    <div className="grid-scroll-wrapper">
+      <div className="grid-container">
+        <div className="grid-scroll-wrapper">
+        {[...Array(50)].map((_, row) => (
+            
+                <div className="grid-row" key={row}>
+                    {[...Array(100)].map((_, col) => renderCell(row, col))}
+                </div>
+            
+        ))}
         </div>
-      ))}
+      </div>
     </div>
   );
+  
 };
 
-export default Grid;
+export default SheetGrid;
