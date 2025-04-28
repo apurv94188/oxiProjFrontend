@@ -27,6 +27,7 @@ const SheetGrid = ({ user = 'nautanki', sheetID = 'sheet2' }) => {
   
   const handleCellEdit = async ({ row, col, newValue, cellRef }) => {
     const key = `${row}-${col}`;
+    cellMap[key] = cellMap[key] || {value:'',style:{}}
     const prevCellValue = cellMap[key].value;
 
     if (cellMap[key].value === newValue) {
