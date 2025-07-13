@@ -91,10 +91,17 @@ const SheetGrid = ({ user = 'nautanki', sheetID = 'sheet2' }) => {
         style={{
           display: 'grid',
           gridTemplateColumns: 'repeat(50, 100px)',
-          minWidth: '50px',
+          minWidth: '75px',
           color: style.color || 'black',
           backgroundColor: style.bg || 'white',
-          fontWeight: style.bold === 'true' ? 'bold' : 'normal'
+          fontWeight: style.bold === 'true' ? 'bold' : 'normal',
+          textAlign: style.align || 'left',
+          fontSize: style.size ? `${style.size}px` : '14px',
+          border: '1px solid #ccc',
+          padding: '5px',
+          boxSizing: 'border-box',
+          overflowWrap: 'break-word',
+          whiteSpace: 'pre-wrap'
         }}
       >
         {cell.value || ''}
