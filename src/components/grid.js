@@ -90,6 +90,9 @@ const SheetGrid = ({ user = 'nautanki', sheetID = 'sheet2' }) => {
     const key = `${row}-${col}`;
     cellMap[key] = cellMap[key] || {value:'',style:{}}
     //const prevCellStyle = cellMap[key].style;
+    const newStyle = {
+      [prop]: style 
+    }
     try{
       const response = await fetch('http://localhost:3000/api/updateCell', {
         method: 'PATCH',
@@ -100,7 +103,7 @@ const SheetGrid = ({ user = 'nautanki', sheetID = 'sheet2' }) => {
           row,
           cell: col,
           value: cellMap[key].value,
-          style: style || {}
+          style: newStyle || {}
         }),
       });
       const result = await response.json();
@@ -253,7 +256,7 @@ const SheetGrid = ({ user = 'nautanki', sheetID = 'sheet2' }) => {
               position: 'absolute',
               top: 0,
               right: 0,
-              width: '50px',
+              width: '5px',
               height: '100%',
               cursor: 'col-resize',
               zIndex: 1,
@@ -270,7 +273,7 @@ const SheetGrid = ({ user = 'nautanki', sheetID = 'sheet2' }) => {
               left: 0,
               bottom: 0,
               width: '100%',
-              height: '50px',
+              height: '5px',
               cursor: 'row-resize',
               zIndex: 2,
             }}
